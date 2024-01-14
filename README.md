@@ -42,6 +42,26 @@ php artisan serve
 npm run dev
 ```
 
+and comment or delete this code in vite.config.js
+
+```
+ build: {
+        rollupOptions: {}
+    },
+    server: {
+        hmr: {
+            host: 'sglibrary.rprayatman.my.id',
+        },
+        cors: {
+            origin: 'http://sglibrary.rprayatman.my.id',
+            methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+            allowedHeaders: 'Content-Type, Authorization', 
+            exposedHeaders: '', 
+            credentials: true,
+        },
+    },
+```
+
 for production 
 
 ```

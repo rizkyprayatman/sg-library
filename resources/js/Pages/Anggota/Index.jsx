@@ -1,5 +1,5 @@
 //import React
-import React from "react";
+import React, { useState } from "react";
 
 //import layout
 import Layout from "../../Layouts/Default";
@@ -8,6 +8,12 @@ import Layout from "../../Layouts/Default";
 import { Head, Link } from "@inertiajs/inertia-react";
 
 export default function anggotaIndex({ anggotas, session }) {
+    const [alert, setAlert] = useState(session.message);
+
+    const handleClose = () => {
+        setAlert(null);
+    };
+
     return (
         <>
             {" "}
@@ -16,12 +22,6 @@ export default function anggotaIndex({ anggotas, session }) {
             </Head>{" "}
             <Layout>
                 <div>
-                    {session.success && (
-                        <div className="alert alert-success border-0 shadow-sm rounded-3">
-                            {session.success}
-                        </div>
-                    )}
-
                     <div className="w-screen">
                         <div>
                             <div className="mx-10">
@@ -32,6 +32,35 @@ export default function anggotaIndex({ anggotas, session }) {
                                     TAMBAH ANGGOTA
                                 </Link>
                             </div>
+                            {alert != null && (
+                                <div className="text-left mt-5 mx-10 flex justify-start">
+                                    <div
+                                        className="p-2 bg-green-800 border rounded-lg items-center text-white leading-none flex justify-between"
+                                        role="alert"
+                                    >
+                                        <span className="flex rounded-full bg-green-500 uppercase px-2 py-1 text-xs font-bold mr-3">
+                                            Success
+                                        </span>
+                                        <span className="font-semibold mr-2 text-left flex-auto">
+                                            {session.message}
+                                        </span>
+                                        <div
+                                            id="closeButton"
+                                            onClick={handleClose}
+                                        >
+                                            <svg
+                                                class="fill-current h-6 w-6 text-white"
+                                                role="button"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20"
+                                            >
+                                                <title>Close</title>
+                                                <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
                             {anggotas.length === 0 ? (
                                 <div className="flex justify-center">
                                     <div className="mt-10 w-screen mx-10 rounded overflow-hidden shadow-lg bg-white">

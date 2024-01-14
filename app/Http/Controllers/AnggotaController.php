@@ -7,13 +7,16 @@ use Illuminate\Http\Request;
 
 class AnggotaController extends Controller
 {
-    public function __invoke()
+    public function __invoke(Request $request)
     {
         //get all anggota
         $anggotas = Anggota::latest()->get();
 
         return inertia('Anggota/Index', [
-            'anggotas' => $anggotas
+            'anggotas' => $anggotas,
+            'session' => [
+                'message' => $request->session()->get('success') ?? null,
+            ],
         ]);
     }
 
@@ -84,6 +87,8 @@ class AnggotaController extends Controller
 
         $anggota = Anggota::findOrFail($id);
         $anggota->update($request->all());
+
+        // $request->session()->flash('success', 'Data Berhasil Diupdate!');
 
         return redirect()->route('anggota.index')->with('success', 'Data Berhasil Diupdate!');
     }
